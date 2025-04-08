@@ -1,21 +1,27 @@
 class Solution {
-    private:
-     void computeAns(vector<int>& nums, int index, vector<vector<int>>& ans) {
-        if(index==nums.size()){
-            ans.push_back(nums);
+
+private:
+    void findPermutation(vector<int>&ds,vector<bool>&freq,vector<int>& nums,vector<vector<int>>&ans){
+        if(ds.size()==nums.size()){
+            ans.push_back(ds);
             return;
         }
-        for(int i=index;i<nums.size();i++){
-            swap(nums[index], nums[i]);
-            computeAns(nums, index+1, ans);
-            swap(nums[index], nums[i]);
+        for(int i=0;i<nums.size();i++){
+            if(!freq[i]){
+                freq[i]=true;
+                ds.push_back(nums[i]);
+                findPermutation(ds,freq,nums,ans);
+                ds.pop_back();
+                freq[i]=false;
+            }
         }
-     }
+    }
 public:
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> ans;
-        int index = 0;
-        computeAns(nums, index, ans);
+        vector<vector<int>>ans;
+        vector<int>ds;
+        vector<bool>freq(nums.size());
+        findPermutation(ds,freq,nums,ans);
         return ans;
-}
+    }
 };
