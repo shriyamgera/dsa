@@ -1,20 +1,18 @@
 class Solution {
 public:
-
-    int recPath(int cm, int cn, int m, int n, vector<vector<int>>&dp){
-        if (cm >= m || cn >= n) return 0;
-        if(cm==m-1 && cn==n-1){
-            return 1;
-        }
-        if(dp[cm][cn] != -1) return dp[cm][cn];
-
-        int right = recPath(cm,cn+1,m,n,dp);
-        int down = recPath(cm+1,cn,m,n,dp);
-        return dp[cm][cn] = right+down;
-    }
     int uniquePaths(int m, int n) {
-        vector<vector<int>> dp(m, vector<int>(n,-1));
-         int ans = recPath(0,0,m,n,dp);
-         return ans;
+        vector<vector<int>> arr(m, vector<int>(n, 0));
+        int count=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 || j==0){
+                    arr[i][j]=1;
+                }else{
+                    arr[i][j]=arr[i][j-1]+arr[i-1][j];
+                }
+            }
+        }
+        count = arr[m-1][n-1];
+        return count;
     }
 };
