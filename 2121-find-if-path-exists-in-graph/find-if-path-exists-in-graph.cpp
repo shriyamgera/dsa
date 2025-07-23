@@ -15,9 +15,6 @@ void dfs(int i, vector<vector<int>>& adj,vector<bool>&visited, int &destination,
     }
 }
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-
-        if(edges.size()==0 || edges.size()==1) return true;
-
         vector<vector<int>>adj(n);
         for(int i = 0; i<edges.size(); i++){
             int u = edges[i][0];
