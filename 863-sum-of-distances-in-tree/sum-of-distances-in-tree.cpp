@@ -1,27 +1,26 @@
 class Solution {
 public:
 
-    void dfsRoot(int i, vector<vector<int>>&adj, vector<bool>&visited, vector<int>&distances, int & level,vector<int>&parents,vector<int>&childCount ){
+    void dfsRoot(int i, vector<vector<int>>&adj, vector<bool>&visited, vector<int>&distances, int & level,vector<int>&childCount ){
         visited[i] = true;
         level++;
         for(auto j: adj[i]){
             if(!visited[j]){
-                parents[j] = i;
                 childCount[i]++;
                 distances[0]+=level;
-                dfsRoot(j,adj,visited,distances,level,parents,childCount);
+                dfsRoot(j,adj,visited,distances,level,childCount);
                 childCount[i] += childCount[j];
             }
         }
         level--;
     }
 
-        void dfs(int i,int n, vector<vector<int>>&adj, vector<int>&distances,vector<int>&parents,vector<int>&childCount ){
+        void dfs(int i,int n,int parent, vector<vector<int>>&adj, vector<int>&distances,vector<int>&childCount ){
         
         for(auto j: adj[i]){
-            if(j != parents[i]){
-                distances[j] = distances[parents[j]] - (childCount[j] + 1) + (n-1-childCount[j]);
-                dfs(j,n,adj,distances,parents,childCount);
+            if(j != parent){
+                distances[j] = distances[i] - (childCount[j] + 1) + (n-1-childCount[j]);
+                dfs(j,n,i,adj,distances,childCount);
             }
         }
     }
@@ -36,12 +35,11 @@ public:
 
         
         vector<int>distances(n,0);
-        vector<int>parents(n,-1);
         vector<int>childCount(n,0);
         vector<bool>visited(n,false);
         int level = 0;
-        dfsRoot(0,adj,visited,distances,level,parents,childCount);
-        dfs(0,n,adj,distances,parents,childCount);
+        dfsRoot(0,adj,visited,distances,level,childCount);
+        dfs(0,n,-1,adj,distances,childCount);
         return distances;
     }
 };
