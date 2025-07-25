@@ -6,9 +6,10 @@ public:
         int n = graph.size();
         if(i==n-1){
             ans.push_back(temp);
-        }
-        for(auto j: graph[i]){
+        }else{
+            for(auto j: graph[i]){
             dfs(j,graph,temp,ans);
+        }
         }
 
     }
