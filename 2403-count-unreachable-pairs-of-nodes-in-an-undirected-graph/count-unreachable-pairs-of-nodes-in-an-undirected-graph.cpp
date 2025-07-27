@@ -20,11 +20,14 @@ public:
             adj[v].push_back(u);
         }
         vector<bool>vis(n,false);
-        vector<int>div;
+        // vector<int>div;
+        long long total = 0, sum = 0;
         for(int i=0;i<n;i++){
             if(!vis[i]){
                 int num = dfs(i,adj,vis);
-                div.push_back(num);
+                // div.push_back(num);
+                total += (long long)num * sum;
+                sum += num;
             }
         }
 
@@ -38,11 +41,11 @@ public:
         // }
 
         // return ans;
-        long long total = 0, sum = 0;
-        for (int size : div) {
-            total += (long long)size * sum;
-            sum += size;
-        }
+        
+        // for (int size : div) {
+        //     total += (long long)size * sum;
+        //     sum += size;
+        // }
 
         return total;
     }
