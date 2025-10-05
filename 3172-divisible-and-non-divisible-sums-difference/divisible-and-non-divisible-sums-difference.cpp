@@ -1,17 +1,10 @@
 class Solution {
 public:
     int differenceOfSums(int n, int m) {
-        int divSum = 0;
-        int nonDivSum = 0;
-
-        for(int i=1; i<=n; i++){
-            if(i%m==0){
-                divSum += i;
-            }else{
-                nonDivSum += i;
-            }
-        }
-
-        return nonDivSum-divSum;
+        int k = n/m;
+        int num2 = (k*(k+1)/2)*m;
+        int totalSum = n*(n+1)/2;
+        int num1 = totalSum-num2;
+        return num1-num2;
     }
 };
