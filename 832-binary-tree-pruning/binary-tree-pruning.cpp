@@ -11,22 +11,14 @@
  */
 class Solution {
 public:
-    bool isOnePresent(TreeNode* root){
-        if(!root) return false;
-        if(root->val == 1) return true;
-        return isOnePresent(root->left) || isOnePresent(root->right);
-    }
     TreeNode* pruneTree(TreeNode* root) {
         if(!root) return NULL;
-        bool a = isOnePresent(root->left);
-        bool b = isOnePresent(root->right);
+        root->left = pruneTree(root->left);
+        root->right =  pruneTree(root->right);
 
-        if(!a) root->left = NULL;
-        if(!b) root->right = NULL;
-        pruneTree(root->left);
-        pruneTree(root->right);
-
-        if(!root->left && !root->right && root->val == 0) return NULL;
+        if(!root->left && !root->right && root->val == 0){
+            root = NULL;
+        }
         return root;
     }
 };
