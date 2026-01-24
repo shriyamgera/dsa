@@ -15,9 +15,9 @@ public:
         while(j<n){
             mp[nums[j]]++;
             while(mp.size()==u){
-                ans +=(n-j);
-                mp[nums[i]]--;
-                if(mp[nums[i]] == 0)mp.erase(nums[i]);
+                ans +=n-j;
+                if(mp[nums[i]] == 1)mp.erase(nums[i]);
+                else mp[nums[i]]--;
                 i++;
             }
             j++;
