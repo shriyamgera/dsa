@@ -10,7 +10,7 @@ public:
         for (string i : words) {
             string word = i;
             string rev = word;
-            reverse(word.begin(), word.end());
+            reverse(rev.begin(), rev.end());
 
             if (word != rev && mp[word] > 0 && mp[rev] > 0) {
                 mp[word]--;
